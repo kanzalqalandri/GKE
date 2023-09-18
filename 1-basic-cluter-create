@@ -1,0 +1,34 @@
+# Set you default compute zone
+
+gcloud config set compute/zone us-west1-a
+
+
+gcloud container clusters create gke-deep-dive \
+  --num-nodes=1 \
+  --disk-type=pd-standard \
+  --disk-size=10
+
+
+
+gcloud container clusters list
+
+
+
+gcloud container clusters delete gke-deep-dive
+
+
+
+#  In this lab we created a single node zonal cluster by using the gcloud CLI. If we are to
+#  create a multi zonal cluster, we’ll use the --node-locations flag in the command.
+#  --node-locations COMPUTE_ZONE,COMPUTE_ZONE1
+
+
+#  The following command creates a multi-zonal cluster
+
+
+gcloud container clusters create gke-deep-dive \
+  --num-nodes=3 \
+  --disk-type=pd-standard \
+  --disk-size=10 \
+  --zone=us-west1-a \
+  --node-locations=us-west1-a,us-west1-b,us-west1-c

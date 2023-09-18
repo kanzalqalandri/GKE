@@ -1,0 +1,46 @@
+# Check available gke versions in a zone
+
+gcloud container get-server-config --zone=us-west1-a
+
+# Check cluster master and nodes version
+
+gcloud container clusters describe gke-deep-dive --zone=us-west1-a | grep currentMasterVersion
+
+gcloud container clusters describe gke-deep-dive --zone=us-west1-a | grep currentNodeVersion
+
+
+# Upgrade the master-node in cluster
+# Manually upgrading the control plane
+
+gcloud container clusters upgrade gke-deep-dive \
+  --master \
+  --cluster-version=1.27.4-gke.900 \
+  --zone=us-west1-a
+
+# After upgrading a Standard control plane, you can upgrade its nodes. By default,
+# Standard nodes created using the Google Cloud console have auto-upgrade enabled, so
+# this happens automatically. Autopilot always upgrades nodes automatically.
+
+
+
+
+
+
+
+
+
+
+
+
+# Upgrade node pool in standard cluster
+
+gcloud container clusters upgrade gke-deep-dive \
+  --node-pool=gke-deep-dive-node-pool-2 \
+  --cluster-version=1.27.4-gke.900 \
+  --zone=us-west1-a
+
+
+gcloud container clusters upgrade gke-deep-dive \
+  --node-pool=default-pool \
+  --cluster-version=1.27.4-gke.900 \
+  --zone=us-west1-a  

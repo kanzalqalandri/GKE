@@ -1,0 +1,29 @@
+# Install kubectl on local machine
+
+sudo apt install kubectl
+
+
+# Install gcloud
+
+Install gcloud utility
+
+gcloud components install gke-gcloud-auth-plugin    # OR
+
+sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
+
+# Check Version
+gke-gcloud-auth-plugin  --version
+
+
+
+gcloud container clusters get-credentials CLUSTER_NAME --region=COMPUTE_REGION
+● Replace the following:
+i. CLUSTER_NAME: the name of your cluster.
+ii. COMPUTE_REGION: the Compute Engine region for your cluster. For
+zonal clusters, use --zone=COMPUTE_ZONE.
+
+
+gcloud container clusters get-credentials CLUSTER_NAME --region=COMPUTE_REGION
+
+
+gcloud container clusters get-credentials gke-deep-dive  --zone=us-west1-a

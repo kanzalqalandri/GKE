@@ -1,0 +1,21 @@
+# Create a new cluster with labels
+
+gcloud container clusters create gke-deep-dive-new \
+  --num-nodes=1 \
+  --disk-type=pd-standard \
+  --disk-size=10 \
+  --labels=test=mylabel \
+  --zone=us-central1-a
+
+
+# Update an existing cluster and give it a labels
+
+gcloud container clusters update gke-deep-dive --update-labels=old=gke --zone=us-west1-a
+
+gcloud container clusters describe gke-deep-dive --zone=us-west1-a | grep label 
+
+
+
+# Remove labels from an existing cluster
+
+gcloud container clusters update gke-deep-dive --remove-labels=old --zone=us-west1-a

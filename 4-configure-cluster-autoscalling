@@ -1,0 +1,38 @@
+# Create a zonal cluster with autoscaling enabled
+
+gcloud container clusters create my-new-cluster \
+  --enable-autoscaling \
+  --num-nodes=1 \
+  --min-nodes=1 \
+  --max-nodes=5 \
+  --disk-type=pd-standard \
+  --disk-size=10 \
+  --zone=us-central1-b
+
+
+
+# Check autoscalig is enabled or not
+
+gcloud container clusters describe my-new-cluster --zone=us-central1-b | grep autoscaling -A 1
+
+
+
+
+
+# Add a new node pool with autoscaling anabled in a cluster which does not have autoscaling in its default node poll 
+
+gcloud container node-pools create gke-deep-dive-node-pool-2 \
+  --cluster=gke-deep-dive \
+  --enable-autoscaling \
+  --max-nodes=5 \
+  --disk-type=pd-standard \
+  --disk-size=10 \
+  --zone=us-west1-a
+
+# Enable autoscaling on an existing node pool (default node pool)
+
+gcloud container clusters update gke-deep-dive \
+  --enable-autoscaling \
+  --node-pool=default-pool \
+  --max-nodes=5 \
+  --zone=us-west1-a
