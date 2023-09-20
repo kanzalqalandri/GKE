@@ -1,0 +1,23 @@
+# Create a VPC
+
+gcloud compute networks create gke-deep-dive-vpc --subnet-mode=custom
+
+# Create a subnet in this VPC
+
+gcloud compute networks subnets  create gke-deep-divd-subnet \ 
+  --network=gke-deep-dive-vpc \
+  --range=10.10.0.0/24 \
+  --region=us-west1
+
+
+# Create a VPC native Cluster
+
+gcloud container clusters create gke-deep-dive \
+  --num-nodes=1 \
+  --disk-type=pd-standard \
+  --disk-size=10 \
+  --enable-ip-alias \
+  --network=gke-deep-dive-vpc \
+  --subnetwork=gke-deep-divd-subnet \
+  --cluster-ipv4-cidr=/21 \
+  --services-ipv4-cidr=/21
