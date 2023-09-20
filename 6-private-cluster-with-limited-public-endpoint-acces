@@ -1,0 +1,64 @@
+# Set default zone
+
+gcloud config set compute/zone us-west1-a
+
+
+# Create a private cluster
+
+gcloud container clusters create gke-deep-private \
+  --num-nodes=1 \
+  --disk-type=pd-standard \
+  --disk-size=10 \
+  --create-subnetwork name=gke-deep-dive-subnet \
+  --enable-ip-alias \
+  --enable-private-nodes \
+  --master-ipv4-cidr=172.16.0.32/28 \
+  --enable-private-endpoint \
+  --zone=us-west1-a
+
+
+# Check Cloud shell IP
+dig +short myip.opendns.com @resolver1.opendns.com
+
+# Try to login to the clusters
+
+gcloud container clusters update gke-deep-private \
+  --enable-master-authorized-networks \
+  --master-authorized-networks 34.124.183.227/32 \
+  --zone=us-west1-a
+
+# Above command will give the error. because we enable the     --enable-private-endpoint
+
+
+
+gcloud container clusters create gke-deep-dive-public \
+  --num-nodes=1 \
+  --disk-type=pd-standard \
+  --disk-size=10 \
+  --enable-master-authorized-networks \
+  --subnetwork gke-deep-dive-subnet \
+  --enable-private-nodes \
+  --enable-ip-alias \
+  --master-ipv4-cidr 172.16.0.16/28 \
+  --zone=us-west1-a
+
+
+
+# Now run 
+
+gcloud container clusters update gke-deep-dive-public \
+  --enable-master-authorized-networks \
+  --master-authorized-networks 34.124.183.227/32 \
+  --zone=us-west1-a
+
+#  List all clusters
+
+gcloud container clusters list
+
+# Set context for gke-deep-dive-public
+
+gcloud container clusters get-credentials gke-deep-dive-public --zone=us-west1-a
+
+
+
+ 

@@ -1,15 +1,19 @@
 # Install kubectl on local machine
 
 sudo apt install kubectl
+sudo dnf install kubectl
+
 
 
 # Install gcloud
 
-Install gcloud utility
+# Install gcloud utility
 
 gcloud components install gke-gcloud-auth-plugin    # OR
 
-sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
+sudo apt-get install google-cloud-sdk-gke-gcloud-auth-plugin  # OR
+sudo yum install google-cloud-sdk-gke-gcloud-auth-plugin 
+
 
 # Check Version
 gke-gcloud-auth-plugin  --version
@@ -17,6 +21,7 @@ gke-gcloud-auth-plugin  --version
 
 
 gcloud container clusters get-credentials CLUSTER_NAME --region=COMPUTE_REGION
+
 ● Replace the following:
 i. CLUSTER_NAME: the name of your cluster.
 ii. COMPUTE_REGION: the Compute Engine region for your cluster. For
