@@ -1,0 +1,16 @@
+# Create a  subnet in default vpc
+
+gcloud compute networks subnets create gke-deep-dive-subnet \
+  --network=default \
+  --range=10.10.0.0/24 \
+  --region=us-west1
+
+# Craete a Cluster
+
+gcloud container clusters create my-new-k8s \
+  --num-nodes=1 \
+  --disk-type=pd-standard \
+  --disk-size=10 \
+  --enable-ip-alias \
+  --subnetwork=gke-deep-dive-subnet \
+  --zone=us-west1-a

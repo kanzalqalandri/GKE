@@ -1,0 +1,10 @@
+# Set default zone
+
+gcloud config set compute/zone us-west1-alias
+
+gcloud container clusters create my-new-k8s-2 \
+  --num-nodes=1 \
+  --disk-type=pd-standard \
+  --disk-size=10 \
+  --enable-ip-alias \
+  --addons=HttpLoadBalancing
